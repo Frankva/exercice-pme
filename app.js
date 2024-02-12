@@ -53,6 +53,28 @@ app.get('/co', function(req, res, next) {
   }
 });
 
+const moneyTimeModel = require('./models/MoneyList');
+app.get('/money-list/:date?', async (req, res) => {
+  const date = req.params.date;
+  if (!date) {
+    console.log('date undifine');
+    const today = new Date().toISOString().slice(0, 10);
+    return res.redirect('/money-list/' + today);
+  }
+  const userId = req.session.userId;
+  if (!userId) {
+    return res.redirect('/login');
+  }
+  if (! await moneyTimeModel.isAdmin(userId)) {
+    return res.redirect('/');
+  }
+  const selectList = await moneyTimeModel.selectList(date);
+  console.log(selectList);
+  return res.render('money-list', { 
+    selectList: selectList,
+    dailyDate: date
+  });
+});
 
 app.listen(port, () => {
   console.log(`Application exemple à l'écoute sur le port ${port}!`);

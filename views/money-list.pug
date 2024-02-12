@@ -1,0 +1,40 @@
+doctype html
+html(lang="fr")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title= pageTitle
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css")
+  body
+    section.section
+      .container
+        h1.title PME
+        p.subtitle Gestion d’heures et de salaires
+    section.section
+      .container
+        .field
+          label.label(for='dailyDate') Date du jour
+          .control
+            input.input#dailyDate(type='date' value=dailyDate)
+        table.table.is-hoverable.is-bordered.is-fullwidth
+          thead
+            tr
+              th Prénom
+              th Nom
+              th Salaire annuel
+          tbody
+            each user in selectList
+              tr
+                td=user.firstname
+                td=user.lastname
+                td=user.year_paid
+
+        a(href='/').button.is-link.is-light Annuler
+    footer.footer 
+      .content.has-text-centered
+    script.
+      const dailyDate = document.querySelector('#dailyDate');
+      dailyDate.onblur = (e) => {
+        window.location = e.target.value;
+      };
+
