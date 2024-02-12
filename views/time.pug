@@ -1,0 +1,59 @@
+doctype html
+html(lang="fr")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title= pageTitle
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css")
+  body
+    section.section
+      .container
+        h1.title Hello World
+        p.subtitle My first website with #[strong Bulma]!
+        form(method='post')
+          .field
+            label.label(for='dailyDate') Date du jour
+            .control
+              input.input#dailyDate(type='date' name='dailyDate' value=dailyDate)
+          .field
+            label.label(for='startHour') Heure d’arrivée
+            .control
+              input.input#startHour(type='time' name='startHour' value=startHour step='1')
+          .field
+            label.label(for='endHour') Heure de départ
+            .control
+              input.input#endHour(type='time' name='endHour' value=endHour step='1')
+          .field.is-grouped
+            .control
+              button.button.is-link Envoyer
+            .control
+              a(href='/').button.is-link.is-light Annuler
+    section.section
+      .container
+        table.table.is-hoverable.is-bordered.is-fullwidth
+          thead
+            tr
+              th 
+              th Jour
+              th Semaine
+              th Mois
+          tbody
+            tr
+              th Temps
+              td #{dayHour}
+              td #{weekHour}
+              td #{monthHour}
+            tr
+              th CHF
+              td #{dayPaid}
+              td #{weekPaid}
+              td #{monthPaid}
+
+    footer.footer 
+      .content.has-text-centered
+    script.
+      const dailyDate = document.querySelector('#dailyDate');
+      dailyDate.onblur = (e) => {
+        window.location = e.target.value;
+      };
+
