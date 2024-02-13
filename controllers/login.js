@@ -1,10 +1,11 @@
 const employeeModel = require('../models/Employee');
 
 exports.getLogin = (req, res) => {
+  const isConnected = false;
   if (req.session.userId) {
     return res.redirect('/time/');
   }
-  res.render('login', {});
+  return res.render('login', {isConnected: isConnected});
 }
 
 exports.postLogin = (req, res) => {

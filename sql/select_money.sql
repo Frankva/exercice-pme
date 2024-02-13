@@ -100,3 +100,12 @@ SELECT
   WHERE (YEAR(daily_date)=YEAR(?)) AND
   (MONTH(daily_date)=MONTH(?)) AND (employee_id=?)
 ) AS month_paid;
+
+SELECT ROUND(SUM(TIME_TO_SEC(end_hour) -
+TIME_TO_SEC(start_hour)) / 3600.0 * amount, 2)
+FROM daily_schedules
+NATURAL JOIN employees
+NATURAL JOIN employees_is_paid_working_hours
+NATURAL JOIN working_hours
+WHERE (YEAR(daily_date)=YEAR(?)) AND
+(MONTH(daily_date)=MONTH(?)) AND (employee_id=?)

@@ -8,8 +8,26 @@ html(lang="fr")
   body
     section.section
       .container
-        h1.title PME
-        p.subtitle Gestion d’heures et de salaires
+        a(href='/')
+          h1.title PME
+          p.subtitle Gestion d’heures et de salaires
+        nav.navbar
+          .navbar-brand
+            a.navbar-burger(data-target='navMenu')
+              span
+              span
+              span
+          .navbar-menu#navMenu
+            .navbar-start
+              a.navbar-item(href='../time') Temps de travails
+              a.navbar-item(href='../money-list') Liste de salaires
+            .navbar-end
+              if !isConnected
+                a.is-light.navbar-item(href='../login') Connexion
+              else
+                a.is-light.navbar-item(href='../logout') Déconnexion
+    section.section
+      .container
         form(method='post')
           .field
             label.label(for='dailyDate') Date du jour
@@ -56,4 +74,25 @@ html(lang="fr")
       dailyDate.onblur = (e) => {
         window.location = e.target.value;
       };
+      document.addEventListener('DOMContentLoaded', () => {
+
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Add a click event on each of them
+        $navbarBurgers.forEach( el => {
+          el.addEventListener('click', () => {
+
+            // Get the target from the "data-target" attribute
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+
+          });
+        });
+
+      });
 

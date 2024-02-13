@@ -3,11 +3,13 @@ const dailySchedulesModel = require('../models/DailySchedules');
 const moneyTimeModel = require('../models/moneyTime');
 
 exports.getTime = async (req, res) => {
+  let isConnected = false;
   if (!req.session.userId) {
     return res.redirect('/login');
   }
+  isConnected = true;
   if (!req.params.date) {
-    console.log('date undifine');
+    console.log('date undefine');
     const today = new Date().toISOString().slice(0, 10);
     return res.redirect('/time/' + today);
   }
@@ -21,6 +23,7 @@ exports.getTime = async (req, res) => {
     ...dailySchedules,
     ...moneyTime,
     dailyDate: req.params.date,
+    isConnected: isConnected
   });
 }
 
